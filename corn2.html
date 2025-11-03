@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CornHug.come  (Login)</title>
+  <style>
+    :root{
+      --bg:#0d0d0d; --card:#161616; --accent:#facc15; --muted:#9b9b9b;
+      --fun1:#ffd964; --fun2:#ffb03b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,#070707 0%,var(--bg) 100%);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* LOG in*/
+    .loginWrap{
+      position:fixed; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.9);
+      z-index:999;
+      transition:opacity .4s ease;
+    }
+    .loginBox{
+      background:#111;
+      padding:40px;
+      border-radius:16px;
+      box-shadow:0 0 20px rgba(250,204,21,0.1);
+      text-align:center;
+      width:320px;
+    }
+    .loginBox h2{
+      color:var(--accent);
+      margin-bottom:20px;
+    }
+    .loginBox input{
+      width:100%;
+      padding:10px;
+      margin:8px 0;
+      border:none;
+      border-radius:10px;
+      background:#222;
+      color:#fff;
+    }
+    .loginBox button{
+      width:100%;
+      padding:10px;
+      background:var(--accent);
+      border:none;
+      border-radius:10px;
+      font-weight:bold;
+      color:#000;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    .loginBox button:hover{
+      background:#ffb300;
+    }
+    .login-error{
+      color:red;
+      font-size:13px;
+      display:none;
+      margin-top:6px;
+    }
+
+    /* Hide main site before login */
+    main, header, footer, .filters, .modalWrap { display:none; }
+
+    /* ========== EXISTING CORNHUG STYLE (kept same) ========== */
+    header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 34px;
+      background:rgba(255,255,255,0.02);
+      border-bottom:1px solid rgba(255,255,255,0.02);
+      position:sticky; top:0; z-index:40;
+    }
+    .logo{display:flex; gap:10px; align-items:center;}
+    .logo .icon{
+      width:44px;height:44px;border-radius:8px;
+      background:linear-gradient(135deg,var(--fun1),var(--fun2));
+      display:flex;align-items:center;justify-content:center;color:#000;font-weight:800;font-size:18px;
+      box-shadow:0 6px 18px rgba(250,204,21,0.12), inset 0 -4px 8px rgba(0,0,0,0.08);
+    }
+    .logo h1{font-size:20px;margin:0; color:var(--accent); letter-spacing:0.6px}
+    .tag{color:var(--muted); font-size:13px}
+    .search{width:46%;min-width:220px;display:flex;align-items:center;background:#0f0f0f;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);}
+    .search input{background:transparent;border:0;outline:none;color:#fff;width:100%;font-size:14px;}
+    .filters{display:flex;gap:12px;padding:18px 34px;flex-wrap:wrap}
+    .filters button{background:transparent;border:1px solid rgba(255,255,255,0.03);color:#ddd;padding:8px 14px;border-radius:999px;cursor:pointer;transition:all .18s ease;}
+    .filters button:hover{background:var(--accent);color:#000;border-color:transparent;transform:translateY(-3px)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;padding:20px 34px 60px;}
+    .card{background:var(--card); border-radius:14px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.6);transition: transform .25s ease, box-shadow .25s ease;display:flex;flex-direction:column;}
+    .card:hover{ transform:translateY(-8px); box-shadow:0 18px 48px rgba(0,0,0,0.7);}
+    .thumb{height:140px; background:#222; display:flex;align-items:center;justify-content:center;font-size:38px;color:var(--accent);}
+    .meta{padding:12px 14px; display:flex;flex-direction:column; gap:8px;}
+    .meta h3{margin:0;font-size:15px}
+    .meta p{margin:0;color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:8px;margin-top:6px}
+    .btn{border:0;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:8px;}
+    .btn-play{background:var(--accent); color:#000;}
+    .btn-hug{background:#ffd; color:#000; opacity:0.95}
+    .btn-pop{background:transparent;border:1px solid rgba(255,255,255,0.06); color:#fff}
+    .toast{position:fixed; right:22px; bottom:22px; background:rgba(0,0,0,0.85); color:#fff; padding:12px 14px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.6); z-index:90; transform:translateY(16px); opacity:0; transition:all .28s ease;display:flex; gap:10px; align-items:center; min-width:220px;}
+    .toast.show{ opacity:1; transform:translateY(0); right:22px; }
+    .toast .emoji{ font-size:20px; background:linear-gradient(135deg,#ffd964,#ffb03b); padding:8px; border-radius:8px; color:#000; font-weight:800 }
+    .modalWrap{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:100;background:rgba(0,0,0,0.75); opacity:0; pointer-events:none; transition:opacity .5s ease;}
+    .modalWrap.show{ opacity:1; pointer-events:auto; }
+    .modal{background:linear-gradient(180deg,#121212,#171717); color:#fff; padding:28px 28px; border-radius:14px; width:420px; text-align:center;box-shadow:0 30px 80px rgba(0,0,0,0.8);transform:translateY(8px); transition:transform .35s ease;}
+    .modalWrap.show .modal{ transform:translateY(0) }
+    .modal h2{ color:var(--accent); margin-bottom:8px }
+    .modal p{ color:var(--muted); margin-bottom:18px }
+    .modal .enter{ background:var(--accent); color:#000; padding:10px 18px; border-radius:10px; border:0; font-weight:700; cursor:pointer }
+    .modal .decline{ background:transparent; color:#ddd; border:1px solid rgba(255,255,255,0.04); padding:8px 12px; border-radius:10px; margin-left:8px; cursor:pointer }
+    footer{padding:20px;text-align:center;color:var(--muted); font-size:13px; border-top:1px solid rgba(255,255,255,0.02); margin-top:18px}
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div class="loginWrap" id="loginScreen">
+    <div class="loginBox">
+      <h2>Login to CornHug</h2>
+      <input type="text" id="user" placeholder="Username">
+      <input type="password" id="pass" placeholder="Password">
+      <button onclick="doLogin()">Login</button>
+      <div class="login-error" id="loginError">Invalid username or password</div>
+    </div>
+  </div>
+
+  <!-- Age-gate -->
+  <div class="modalWrap" id="ageGate">
+    <div class="modal">
+      <h2>Welcome to CornHug </h2>
+      <p>This site contains hot, steamy contents, BEWARE!!</p>
+      <div>
+        <button class="enter" id="enterBtn">Yes, I'am 18+</button>
+        <button class="decline" id="declineBtn">Nope, I'm allergic to fun</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rest of the existing CornHug content -->
+  <header>
+    <div class="logo">
+      <div class="icon">CH</div>
+      <div>
+        <h1>CornHug</h1>
+        <div class="tag">We dont show nudity, we share non scenes</div>
+      </div>
+    </div>
+    <div class="search"><input id="searchInput" placeholder="Search for corn videos..." /></div>
+  </header>
+
+  <div class="filters" id="filterRow">
+    <button data-filter="all">All</button>
+    <button data-filter="popcorn">Popcorn</button>
+    <button data-filter="sweet">Sweet Corn</button>
+    <button data-filter="kernel">Kernel Cam</button>
+  </div>
+
+  <main><section class="grid" id="videoGrid"></section></main>
+  <div class="toast" id="toast"><div class="emoji">🌽</div><div class="txt">Toast message</div></div>
+  <footer>© 2025 CornHug. Stay soft not HARD </footer>
+
+  <script>
+/* LOGIN LOGIC */
+function doLogin(){
+  const u = document.getElementById('user').value.trim();
+  const p = document.getElementById('pass').value.trim();
+  const err = document.getElementById('loginError');
+  if(u === "admin" && p === "1234"){
+    document.getElementById('loginScreen').style.display = "none";
+    // reveal site
+    document.querySelector('header').style.display="flex";
+    document.querySelector('.filters').style.display="flex";
+    document.querySelector('main').style.display="block";
+    document.querySelector('footer').style.display="block";
+    document.querySelector('.modalWrap').classList.add('show');
+  } else {
+    err.style.display="block";
+  }
+}
+
+/* Toast Logic */
+const toastEl = document.getElementById('toast');
+let toastTimer = null;
+function showToast(msg, emoji='🌽'){
+  clearTimeout(toastTimer);
+  toastEl.querySelector('.emoji').textContent = emoji;
+  toastEl.querySelector('.txt').textContent = msg;
+  toastEl.classList.add('show');
+  toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
+}
+
+/* Encapsulation part */
+class CornVideo {
+  #title; #category; #duration; #thumb; #views; #url;
+  constructor({title, category, duration, thumb, views=0, url}) {
+    this.#title = title; this.#category = category;
+    this.#duration = duration; this.#thumb = thumb; 
+    this.#views = views; this.#url = url;
+  }
+  getTitle(){return this.#title;} getCategory(){return this.#category;}
+  getDuration(){return this.#duration;} getThumb(){return this.#thumb;}
+  getViews(){return this.#views;} getUrl(){return this.#url;} 
+//abstraction part//
+  renderCard(){   
+    const card=document.createElement('article');card.className='card';
+    const thumb=document.createElement('div');thumb.className='thumb';
+    if(this.#thumb?.startsWith('http')){
+      thumb.style.backgroundImage=`url(${this.#thumb})`;
+      thumb.style.backgroundSize='cover';
+      thumb.style.backgroundPosition='center';
+      thumb.textContent='';
+    } else thumb.textContent=this.#thumb||'🌽';
+    const meta=document.createElement('div');meta.className='meta';
+    const h=document.createElement('h3');h.textContent=this.getTitle();
+    const p=document.createElement('p');p.textContent=`${this.getDuration()} • ${this.getCategory()} • ${this.getViews()} views`;
+    const actions=document.createElement('div');actions.className='actions';
+    const playBtn=document.createElement('button');playBtn.className='btn btn-play';playBtn.textContent='▶ Play';playBtn.onclick=()=>this.play();
+    const hugBtn=document.createElement('button');hugBtn.className='btn btn-hug';hugBtn.textContent='🤗 Hug';hugBtn.onclick=()=>showToast(`You hugged "${this.getTitle()}"!`,'🤗');
+    const popBtn=document.createElement('button');popBtn.className='btn btn-pop';popBtn.textContent='🍿 Pop';popBtn.onclick=()=>showToast(`Popping "${this.getTitle()}" — kernels everywhere!`,'🍿');
+    actions.append(playBtn,hugBtn,popBtn);meta.append(h,p,actions);card.append(thumb,meta);
+    return card;
+  }
+  play(){ //abstraction part//
+    showToast(`Playing "${this.getTitle()}" — enjoy the corn!`,'🎬');
+    window.open(this.#url, '_blank');
+  }
+}
+//inheritance//polymorphism, 
+class SweetCornVideo extends CornVideo{
+  play(){
+    showToast(`Chill bro!! "${this.getTitle()}" 🍯`,'🍯');
+    window.open(this.getUrl(), '_blank');
+  }
+}
+class PopcornVideo extends CornVideo{
+  play(){
+    showToast(`POP! "${this.getTitle()}" 🍿`,'🍿');
+    window.open(this.getUrl(), '_blank');
+  }
+}
+class KernelCamVideo extends CornVideo{
+  play(){
+    showToast(`KernelCam live: "${this.getTitle()}" 🌽`,'🌽');
+    window.open(this.getUrl(), '_blank');
+  }
+}
+
+const demoVideos=[
+  new SweetCornVideo({
+    title:'Sweet Corn Compilation',
+    category:'Sweet Corn',
+    duration:'12:31',
+    thumb:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ37oOS5NuLQ0seBRchQsiRFmrbi4AyRUI0jzwMXxNVNT5EHrw4fcK_sKnIfRZCSO_Lf4&usqp=CAU',
+    views:'1.2M',
+    url:'https://youtu.be/FJjWbFPORMo?si=pDKEBAGM1mNWbyRI'
+  }),
+  new PopcornVideo({
+    title:'Popcorn Gone Wild',
+    category:'Popcorn',
+    duration:'10:55',
+    thumb:'https://static.wikia.nocookie.net/hunthorrorsofthegildedage_gamepedia/images/b/b7/Remedy.png/revision/latest?cb=20240325222905',
+    views:'920K',
+    url:'https://youtu.be/pgDitHLqbyg?si=jlbLSiahdPtkrsqE'
+  }),
+  new KernelCamVideo({
+    title:'Kernel Cam 4K',
+    category:'Kernel Cam',
+    duration:'8:42',
+    thumb:'https://static.wikia.nocookie.net/hunthorrorsofthegildedage_gamepedia/images/2/27/Resilience.png/revision/latest?cb=20240325222551',
+    views:'430K',
+    url:'https://youtu.be/nYZgys7fUTY?si=xjmrVim1xpg3fOTz'
+  }),
+];
+
+const grid=document.getElementById('videoGrid');
+function renderAll(videos){grid.innerHTML='';videos.forEach(v=>grid.append(v.renderCard()));}
+renderAll(demoVideos);
+
+document.getElementById('filterRow').addEventListener('click',e=>{
+  if(!e.target.matches('button'))return;
+  const f=e.target.dataset.filter;
+  const filtered=f==='all'?demoVideos:demoVideos.filter(v=>v.getCategory().toLowerCase().includes(f));
+  renderAll(filtered);
+});
+document.getElementById('searchInput').addEventListener('input',e=>{
+  const q=e.target.value.trim().toLowerCase();
+  renderAll(!q?demoVideos:demoVideos.filter(v=>v.getTitle().toLowerCase().includes(q)));
+});
+
+document.getElementById('enterBtn').onclick=()=>{
+  document.getElementById('ageGate').classList.remove('show');
+  showToast('Welcome to CornHug — stay buttery!','🌽');
+}
+document.getElementById('declineBtn').onclick=()=>{
+  document.getElementById('ageGate').classList.remove('show');
+  showToast('Alright, maybe later — stay crunchy!','😅');
+}
+</script>
