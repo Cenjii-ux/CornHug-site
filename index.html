@@ -257,30 +257,30 @@ class KernelCamVideo extends CornVideo{
   }
 }
 
-const demoVideos=[
+const demoVideos = [
   new SweetCornVideo({
-    title:'Sweet Corn Compilation',
-    category:'Sweet Corn',
-    duration:'12:31',
-    thumb:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ37oOS5NuLQ0seBRchQsiRFmrbi4AyRUI0jzwMXxNVNT5EHrw4fcK_sKnIfRZCSO_Lf4&usqp=CAU',
-    views:'1.2M',
-    url:'https://youtu.be/FJjWbFPORMo?si=pDKEBAGM1mNWbyRI'
+    title: 'Sweet Corn Compilation',
+    category: 'Sweet Corn',
+    duration: '12:31',
+    thumb: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ37oOS5NuLQ0seBRchQsiRFmrbi4AyRUI0jzwMXxNVNT5EHrw4fcK_sKnIfRZCSO_Lf4&usqp=CAU',
+    views: '1.2M',
+    url: 'https://youtu.be/FJjWbFPORMo?si=pDKEBAGM1mNWbyRI'
   }),
   new PopcornVideo({
-    title:'Popcorn Gone Wild',
-    category:'Popcorn',
-    duration:'10:55',
-    thumb:'https://i.imgur.com/APeM6jb.jpeg',
-    views:'920K',
-    url:'https://youtu.be/pgDitHLqbyg?si=jlbLSiahdPtkrsqE'
+    title: 'Popcorn Gone Wild',
+    category: 'Popcorn',
+    duration: '10:55',
+    thumb: 'https://i.imgur.com/APeM6jb.jpeg',  // ✅ fixed
+    views: '920K',
+    url: 'https://youtu.be/pgDitHLqbyg?si=jlbLSiahdPtkrsqE'
   }),
   new KernelCamVideo({
-    title:'Kernel Cam 4K',
-    category:'Kernel Cam',
-    duration:'8:42',
-    thumb:'https://i.imgur.com/2Ndp3Bd.jpeg',
-    views:'430K',
-    url:'https://youtu.be/nYZgys7fUTY?si=xjmrVim1xpg3fOTz'
+    title: 'Kernel Cam 4K',
+    category: 'Kernel Cam',
+    duration: '8:42',
+    thumb: 'https://i.imgur.com/2Ndp3Bd.jpeg',  // ✅ fixed
+    views: '430K',
+    url: 'https://youtu.be/nYZgys7fUTY?si=xjmrVim1xpg3fOTz'
   }),
 ];
 
@@ -308,5 +308,6 @@ document.getElementById('declineBtn').onclick=()=>{
   showToast('Alright, maybe later — stay crunchy!','😅');
 }
 </script>
+
 
 
