@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CornHug.come  (Login)</title>
+  <title>CornHug.come  sampol</title>
   <style>
     :root{
       --bg:#0d0d0d; --card:#161616; --accent:#facc15; --muted:#9b9b9b;
@@ -227,8 +227,19 @@ class CornVideo {
     const p=document.createElement('p');p.textContent=`${this.getDuration()} • ${this.getCategory()} • ${this.getViews()} views`;
     const actions=document.createElement('div');actions.className='actions';
     const playBtn=document.createElement('button');playBtn.className='btn btn-play';playBtn.textContent='▶ Play';playBtn.onclick=()=>this.play();
-    const hugBtn=document.createElement('button');hugBtn.className='btn btn-hug';hugBtn.textContent='🤗 Hug';hugBtn.onclick=()=>showToast(`You hugged "${this.getTitle()}"!`,'🤗');
-    const popBtn=document.createElement('button');popBtn.className='btn btn-pop';popBtn.textContent='🍿 Pop';popBtn.onclick=()=>showToast(`Popping "${this.getTitle()}" — kernels everywhere!`,'🍿');
+    // Replace Hug and Pop buttons with links
+const hugBtn = document.createElement('a');
+hugBtn.className = 'btn btn-hug';
+hugBtn.innerHTML = '😋 Visit Page';
+hugBtn.href = 'https://www.google.com/aclk?sa=L&pf=1&ai=DChsSEwiG1p229tqQAxXRgSkDHW3MDM8YACICCAEQABoCdGI&co=1&ase=2&gclid=Cj0KCQiAiKzIBhCOARIsAKpKLAMQRSTOzROJbMo8GTHnb7UuiEcfpZADDGyeFlVBtvn-XbgSH3kHN4EaAjNjEALw_wcB&ei=cTcLaZGLOPWQvr0Pseeq-Ac&cid=CAAS3gHkaBhYeqJZhgnejPOkQkLDeeMutyd_-BVpqZNs0OTcYsUO-TZOo_A7rTAYF7uqHkYzUMxXwK-3_ULXAJPywMUpTbeslSLyG87ry1xOVVHy3G_Vv889ienR2MfIlFI2ALiouCZF4xU-jbr61eHvlOdcZZQOh_aISTwdki4pUPWVDSZ7SV9uOnmMYRwjIDUl_YUGYG9EKS97Ubdr4c6-AGm0bbO9PVWKtaH8svh1oPLTdlaTN3LEl_FBwAJ6E-yH7n3ZZCx7Z08caP6qE_EvfJRZvYQqqNDUMcEN73exN7k&cce=2&category=acrcp_v1_32&sig=AOD64_2qPIAXKFAgCE07-FpIWZWybUHr3A&q&sqi=2&nis=4&adurl=https://shopee.ph/search?keyword%3Dgrwm%2520shopee%26gad_source%3D1%26gad_campaignid%3D22692545963%26gbraid%3D0AAAAADPpU9C5jKA2wv-cQl_hjUWmYJ0Ie%26gclid%3DCj0KCQiAiKzIBhCOARIsAKpKLAMQRSTOzROJbMo8GTHnb7UuiEcfpZADDGyeFlVBtvn-XbgSH3kHN4EaAjNjEALw_wcB&ved=2ahUKEwjRh5i29tqQAxV1iK8BHbGzCn8Q0Qx6BAgLEAE'; // 🔗 your desired website
+hugBtn.target = '_blank'; // opens in new tab
+
+const popBtn = document.createElement('a');
+popBtn.className = 'btn btn-pop';
+popBtn.innerHTML = '😏fuck it';
+popBtn.href = 'https://www.google.com/aclk?sa=L&pf=1&ai=DChsSEwi7gavD9tqQAxX0DHsHHSmgDhwYACICCAEQABoCdG0&co=1&ase=2&gclid=Cj0KCQiAiKzIBhCOARIsAKpKLAPwWBMet6juhLbTt7KcRjoUrCWk79Bz2BtyoRd6L84W0O0uBr94r1AaAvIcEALw_wcB&cid=CAASuwHkaKP1P5k-Mdu_xLBwP7gm79jPCWkviMGbhdXTiWpusZvH1pigcjrUEyVcX3s9r0-7t8YOd0A-owhty0QQdWASIX6IlIC_hjmG8M6MujKxdCpI1xCA8RVV-WGuY678wXHnSJVmOEafumYGtmofM2J0DepMm-N7VfE6DvFLIeUrUrL1uNLN0ShYdbZk_iUmi-246yqQJ50J1oSqBlUHsytkPtGbf2GSoVnz08VB5yOI30sZ7gmTFT993-ZC&cce=2&category=acrcp_v1_32&sig=AOD64_2qQSaBV1fCSPxBgISjerzTNXkBDQ&q&nis=4&adurl=https://www.lazada.com.ph?sub_aff_id%3DZ%26exlaz%3De_WNpfFXAYhOdsbdaDA0DvZDZkWICc2k52oCEiHEl%25252FUv6VEqD9MYhqUY13VEjALYFha%25252FBek%25252FF%25252Bm4ZaQSn2j07SOpy%25252BluXF85Co8ngWqPyJs5pemzXkhYNA3%25252BgFyooHa3S6uCGHQoz6vsSyxUUgNlANXENO1TcBwKb%25252F5bgejvcAkR5bIJp0%25252B%25252Fp6d5oezcbR%25252BE4gloC7gLqw9Uc7fnMDufzv6Q%25253D%25253D%26gad_source%3D1%26gad_campaignid%3D22235888128%26gbraid%3D0AAAAA9mnyzsVOJHUqVzdKUgIgkzQncBR2%26gclid%3DCj0KCQiAiKzIBhCOARIsAKpKLAPwWBMet6juhLbTt7KcRjoUrCWk79Bz2BtyoRd6L84W0O0uBr94r1AaAvIcEALw_wcB&ved=2ahUKEwjau6XD9tqQAxXCcvUHHUUvK1MQ0Qx6BAgLEAE'; // 🔗 your desired website
+popBtn.target = '_blank'; // opens in new tab
+
     actions.append(playBtn,hugBtn,popBtn);meta.append(h,p,actions);card.append(thumb,meta);
     return card;
   }
@@ -257,30 +268,30 @@ class KernelCamVideo extends CornVideo{
   }
 }
 
-const demoVideos = [
+const demoVideos=[
   new SweetCornVideo({
-    title: 'Sweet Corn Compilation',
-    category: 'Sweet Corn',
-    duration: '12:31',
-    thumb: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ37oOS5NuLQ0seBRchQsiRFmrbi4AyRUI0jzwMXxNVNT5EHrw4fcK_sKnIfRZCSO_Lf4&usqp=CAU',
-    views: '1.2M',
-    url: 'https://youtu.be/FJjWbFPORMo?si=pDKEBAGM1mNWbyRI'
+    title:'Sweet Corn Compilation',
+    category:'Sweet Corn',
+    duration:'12:31',
+    thumb:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ37oOS5NuLQ0seBRchQsiRFmrbi4AyRUI0jzwMXxNVNT5EHrw4fcK_sKnIfRZCSO_Lf4&usqp=CAU',
+    views:'1.2M',
+    url:'https://youtu.be/FJjWbFPORMo?si=pDKEBAGM1mNWbyRI'
   }),
   new PopcornVideo({
-    title: 'Popcorn Gone Wild',
-    category: 'Popcorn',
-    duration: '10:55',
-    thumb: 'https://i.imgur.com/APeM6jb.jpeg',  // ✅ fixed
-    views: '920K',
-    url: 'https://youtu.be/pgDitHLqbyg?si=jlbLSiahdPtkrsqE'
+    title:'Popcorn Gone Wild',
+    category:'Popcorn',
+    duration:'10:55',
+    thumb:'https://i.imgur.com/APeM6jb.jpeg',
+    views:'920K',
+    url:'https://youtu.be/pgDitHLqbyg?si=jlbLSiahdPtkrsqE'
   }),
   new KernelCamVideo({
-    title: 'Kernel Cam 4K',
-    category: 'Kernel Cam',
-    duration: '8:42',
-    thumb: 'https://i.imgur.com/2Ndp3Bd.jpeg',  // ✅ fixed
-    views: '430K',
-    url: 'https://youtu.be/nYZgys7fUTY?si=xjmrVim1xpg3fOTz'
+    title:'Kernel Cam 4K',
+    category:'Kernel Cam',
+    duration:'8:42',
+    thumb:'https://i.imgur.com/2Ndp3Bd.jpeg',
+    views:'430K',
+    url:'https://youtu.be/nYZgys7fUTY?si=xjmrVim1xpg3fOTz'
   }),
 ];
 
@@ -308,6 +319,3 @@ document.getElementById('declineBtn').onclick=()=>{
   showToast('Alright, maybe later — stay crunchy!','😅');
 }
 </script>
-
-
-
